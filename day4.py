@@ -21,7 +21,7 @@ def make_map():
             else: # crap hit the fan
                 print('Unknown line encountered', line)
                 exit() # Not convinced this works
-                
+
             # sigfigs = line.strip().split()
             # time, guard_id = parse(line)
             # if len(sigfigs) == 4:
@@ -30,7 +30,7 @@ def make_map():
             #     curr_guard = guard_id
             # else:
             #   print('Unknown line encountered', line)
-            #   exit() 
+            #   exit()
     return d
 
 def parse(line):
@@ -65,7 +65,7 @@ def part1():
     f = [(x,sum(y)) for x,y in e.items()] #[(guard_id, total min asleep)]
     g = max(f,key=lambda x: x[1]) # (guard_id, total min asleep)
 
-    minutes = d.get(g[0]) 
+    minutes = d.get(g[0])
     h = dict((x,0) for x in range(60)) # {0:0, 1:0, 2:0 ... 59:0}
     for i in range(1,len(minutes)+1,2):
         start = minutes[i-1][-2:]
@@ -80,7 +80,7 @@ def part1():
 
 def part2():
     d = make_map()
-    
+
     # START "build layers"
     e = {}
     for k in d.keys():
@@ -94,7 +94,7 @@ def part2():
             for j in range(int(start),int(end)):
                 v[j] += 1
     # END "build layers"
-    
+
     overall_max = set()
 
     # Add every number we see to the set named overall_max
