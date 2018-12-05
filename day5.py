@@ -25,13 +25,14 @@ def fuse(polymer):
             if reacts(pair):
                 polymer = polymer[0:i]+polymer[i+2:]
                 triggered = True
+                i -= 1
             else:
                 i += 1
     return len(polymer)
 
 def part1():
     polymer = ''
-    with open('corey.txt') as input:
+    with open('day5a.txt') as input:
         polymer = input.read().strip()
 
     print(fuse(polymer))
