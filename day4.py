@@ -1,54 +1,28 @@
 #!/usr/bin/env python3
 
-# TODO: remove date from parse, and subsequently make_map()
-# TODO: split parse() into two functions
-# TODO: parse_4() only needs time, parse_6() only needs guard_id
-
 from collections import defaultdict
 
 def make_map():
     with open('day4a.txt') as input:
         d = defaultdict(list)
         curr_guard = ''
-        for row in input:
-            line = row.strip().split()
-
-            if len(sigfigs) == 4: # get times
-                date, time = parse(line)
+        for line in input:
+            sigfigs = line.strip().split()
+            time, guard_id = parse(sigfigs)
+            if len(sigfigs) == 4:
                 d[curr_guard].append(time)
-            elif len(sigfigs) == 6: # change guard
-                date, time, curr_guard = parse(line)
-            else: # crap hit the fan
-                print('Unknown line encountered', line)
-                exit() # Not convinced this works
-
-            # sigfigs = line.strip().split()
-            # time, guard_id = parse(line)
-            # if len(sigfigs) == 4:
-            #     d[curr_guard].append(time)
-            # elif len(sigfigs) == 6:
-            #     curr_guard = guard_id
-            # else:
-            #   print('Unknown line encountered', line)
-            #   exit()
+            elif len(sigfigs) == 6:
+                curr_guard = guard_id
+            else:
+              print('Unknown line encountered', line)
+              exit()
     return d
 
-def parse(line):
-    log_line = line.strip().split()
-    if len(log_line) == 4:
-        date = log_line[0][1:]
-        time = log_line[1][:-1]
-        return (date,time)
-    elif len(log_line) == 6:
-        date = log_line[0][1:]
-        time = log_line[1][:-1]
-        guard_id = log_line[3]
-        return (date,time,guard_id)
 
-# def parse(line):
+def parse(line):
 # if len(line) == 4, line[3] is garbage we don't use
 # if len(line) == 6, line[1] is never used
-#     return (line[1][:-1], line[3])
+    return (line[1][:-1], line[3])
 
 
 def part1():
